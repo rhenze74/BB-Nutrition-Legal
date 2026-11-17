@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Buzzer Beater Nutrition Support</title>
+<style>
+  :root {
+    --ink: #16181d;
+    --paper: #f4f5f7;
+    --panel: #e9ebef;
+    --muted: #5b6270;
+    --line: #d7dae0;
+    --accent: #d91f26;
+    --accent-ink: #7a0f13;
+    --accent-tint: #fbe6e6;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --ink: #eef0f3;
+      --paper: #101216;
+      --panel: #181b21;
+      --muted: #9aa1ad;
+      --line: #262b33;
+      --accent: #ff5a5c;
+      --accent-ink: #ffb3b4;
+      --accent-tint: #2a1416;
+    }
+  }
+  :root[data-theme="dark"] {
+    --ink: #eef0f3;
+    --paper: #101216;
+    --panel: #181b21;
+    --muted: #9aa1ad;
+    --line: #262b33;
+    --accent: #ff5a5c;
+    --accent-ink: #ffb3b4;
+    --accent-tint: #2a1416;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "Source Serif 4", Georgia, "Times New Roman", serif;
+    font-size: 17px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, .eyebrow, .toc a, .masthead-name, nav.toc {
+    font-family: "Oswald", "Arial Narrow", "Helvetica Neue", sans-serif;
+  }
+  a { color: var(--accent-ink); text-decoration-thickness: 1px; }
+  a:hover { color: var(--accent); }
+
+  .band {
+    border-top: 3px solid var(--accent);
+    border-bottom: 1px solid var(--line);
+    background: var(--panel);
+  }
+  .masthead {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 28px 24px 24px;
+  }
+  .masthead-name {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 10px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    font-size: 15px;
+    color: var(--muted);
+  }
+  .masthead-name .buzzer {
+    display: inline-block;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-tint);
+  }
+  h1 {
+    margin: 14px 0 6px;
+    font-size: clamp(34px, 6vw, 48px);
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    text-wrap: balance;
+  }
+  .dek {
+    color: var(--muted);
+    font-family: "Source Serif 4", Georgia, serif;
+    font-size: 17px;
+    max-width: 56ch;
+  }
+  .meta {
+    margin-top: 14px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 18px;
+    font-family: "Oswald", sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .meta b { color: var(--ink); font-weight: 600; }
+
+  nav.toc {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 16px 24px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 10px;
+    overflow-x: auto;
+  }
+  nav.toc a {
+    flex: 0 0 auto;
+    display: inline-block;
+    padding: 6px 12px;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-size: 12.5px;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+    white-space: nowrap;
+  }
+  nav.toc a:hover { border-color: var(--accent); color: var(--accent-ink); }
+
+  main {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 40px 24px 30px;
+  }
+  section { padding: 30px 0; border-top: 1px solid var(--line); }
+  section:first-of-type { border-top: none; padding-top: 6px; }
+  section:target { background: var(--accent-tint); margin: 0 -16px; padding: 30px 16px; border-radius: 10px; border-top-color: transparent; }
+
+  .eyebrow {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent-ink);
+    font-weight: 600;
+  }
+  .eyebrow .num {
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 500;
+  }
+  h2 {
+    margin: 6px 0 14px;
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: 0.005em;
+  }
+  p { margin: 0 0 14px; max-width: 64ch; }
+  p:last-child { margin-bottom: 0; }
+  ul { margin: 0 0 14px; padding-left: 22px; max-width: 62ch; }
+  li { margin-bottom: 6px; }
+  strong { font-weight: 600; }
+
+  table.storage {
+    width: 100%;
+    max-width: 64ch;
+    border-collapse: collapse;
+    margin: 4px 0 16px;
+    font-size: 15.5px;
+  }
+  table.storage th, table.storage td {
+    text-align: left;
+    padding: 9px 12px 9px 0;
+    border-bottom: 1px solid var(--line);
+    vertical-align: top;
+  }
+  table.storage th {
+    font-family: "Oswald", sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 500;
+  }
+
+  .callout {
+    background: var(--panel);
+    border-left: 3px solid var(--accent);
+    padding: 14px 16px;
+    border-radius: 0 8px 8px 0;
+    font-size: 15.5px;
+  }
+  .callout p { margin-bottom: 8px; }
+  .callout p:last-child { margin-bottom: 0; }
+
+  footer.band .masthead { padding-top: 22px; padding-bottom: 30px; }
+  footer p { color: var(--muted); font-size: 14px; max-width: 60ch; margin: 0 0 8px; }
+  footer .masthead-name { margin-bottom: 6px; }
+
+  @media (max-width: 520px) {
+    body { font-size: 16px; }
+    section:target { margin: 0 -12px; padding: 24px 12px; }
+  }
+</style>
+</head>
+<body>
+<div class="band">
+  <div class="masthead">
+    <span class="masthead-name"><span class="buzzer"></span>Buzzer Beater Nutrition</span>
+    <h1>Support</h1>
+    <p class="dek">Answers to common questions. Something else? Email <a href="mailto:support@buzzerbeaterlabs.com">support@buzzerbeaterlabs.com</a> — in the app, Settings › Contact Support fills in your app version for us.</p>
+  </div>
+</div>
+<main>
+<section id="s1">
+  <div class="eyebrow"><span class="num">01</span>Logging</div>
+  <h3>How do I log food?</h3>
+  <p>On Today, tap Add Food under a meal. Search the built-in database (over 7,000 foods from the USDA) or your own foods, pick an amount and tap Add. Foods you've logged before show up under Recent, so logging them again takes two taps.</p>
+  <h3>Can I log by describing my meal?</h3>
+  <p>Yes — Add Food → Describe a Meal. Type it or tap Say It and talk: “two scrambled eggs, toast with butter and a coffee.” BB Nutrition finds each food and amount for you to check, then adds them all. Your voice is turned into text on your iPhone and never sent anywhere.</p>
+  <h3>How does barcode scanning work?</h3>
+  <p>Add Food → Scan Barcode. BB Nutrition checks your own foods first, then looks the number up on Open Food Facts, a free public database. Only the barcode number is sent. If a product isn't there, scan its nutrition label instead — next time you scan it, it'll be found instantly.</p>
+  <h3>Can it read a nutrition label?</h3>
+  <p>Add Food → Scan Nutrition Label. Take a photo of the Nutrition Facts panel; the numbers are read on your iPhone and shown for you to check before saving.</p>
+  <h3>What's Quick Add for?</h3>
+  <p>When you just know the calories (and maybe macros) — a restaurant meal, say. It logs the numbers without a food behind them.</p>
+  <h3>Can I repeat a meal?</h3>
+  <p>Tap ⋯ on a meal to copy it to today or the next day. An empty meal offers “Same as Yesterday”, and a past day has Copy This Day to Today. You can also long-press any entry.</p>
+</section>
+<section id="s2">
+  <div class="eyebrow"><span class="num">02</span>Recipes</div>
+  <h3>How do recipes work?</h3>
+  <p>Foods → Recipes. Type the ingredients the way a recipe does (“2 cups rice”, “1 lb chicken breast”), set the servings, and BB Nutrition works out the nutrition per serving. Log a serving from the recipe, or find it in Add Food like any other food.</p>
+  <h3>Can I import a recipe from a website or Instagram?</h3>
+  <p>Foods → + → Import Recipe, then paste the link. Most recipe websites work. Instagram usually doesn't let apps read a post without signing in, so copy the caption instead (tap the caption → Copy) and paste that. Check the matched ingredients — an orange ? means the amount was a guess.</p>
+</section>
+<section id="s3">
+  <div class="eyebrow"><span class="num">03</span>Goals & Progress</div>
+  <h3>Where do my calorie targets come from?</h3>
+  <p>At first, from your profile: the Mifflin–St Jeor formula for the calories you burn at rest, times your activity level, plus or minus your goal's weekly rate (3,500 calories per pound). Change them any time in Settings → Goals.</p>
+  <h3>What is “Your Energy” on Progress?</h3>
+  <p>Once you've logged about 10 full days and weighed in 4 or more times over 10+ days, BB Nutrition measures your real maintenance calories from your own data: what you ate, and how your weight moved. It suggests a new target — nothing changes until you tap to use it, and past days keep their old targets.</p>
+  <h3>Why is my estimate “rough”?</h3>
+  <p>Weight swings a few pounds day to day with water. More weigh-ins (ideally each morning) and fully logged days make the estimate steadier. Days you didn't finish logging are left out.</p>
+  <h3>Do I have to track vitamins and minerals?</h3>
+  <p>No — they're off by default. Turn on Settings → Show Micronutrients to see them against the FDA's Daily Values. Foods that don't list a nutrient don't count toward it.</p>
+</section>
+<section id="s4">
+  <div class="eyebrow"><span class="num">04</span>Apple Health & Buzzer Beater Fitness</div>
+  <h3>What does BB Nutrition share with Apple Health?</h3>
+  <p>With Apple Health connected: everything you log (calories, macros and nutrients), water, weigh-ins, waist and body fat. It reads weigh-ins, waist and body fat from your scale and other apps, and active calories for context.</p>
+  <h3>Does it work with Buzzer Beater Fitness?</h3>
+  <p>Yes, through Apple Health: weigh-ins, waist and body fat logged in either app show up in the other, and your food is in Health for Fitness to use.</p>
+</section>
+<section id="s5">
+  <div class="eyebrow"><span class="num">05</span>Your Data</div>
+  <h3>Where is my data kept?</h3>
+  <p>On your iPhone. BB Nutrition has no accounts and no servers. The only things that ever leave your phone are what you choose to share with Apple Health, a barcode number when you scan, a recipe page you ask it to open, and Apple's App Store version check.</p>
+  <h3>How do I back up my data?</h3>
+  <p>BB Nutrition saves a backup every day (Settings → Backups & Data). Export one to iCloud Drive to keep it safe if you delete the app or get a new iPhone, then use Restore from a File there.</p>
+</section>
+
+<section id="privacy">
+  <div class="eyebrow"><span class="num">06</span>Privacy</div>
+  <p>Read the <a href="privacy-policy.html">privacy policy</a>. In short: your data stays on your iPhone.</p>
+</section>
+</main>
+<div class="band"><footer class="masthead"><span class="masthead-name"><span class="buzzer"></span>Buzzer Beater Nutrition</span><p>© 2026 Buzzer Beater Labs</p></footer></div>
+</body>
+</html>
